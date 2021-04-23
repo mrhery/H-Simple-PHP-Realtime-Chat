@@ -65,7 +65,7 @@ class MyChat implements MessageComponentInterface {
 
 $app = new HttpServer(new WsServer(new MyChat()));
 
-//For none SSL server, use this code:
+//For none SSL server, use this code: (comment it if want to use ssl)
 $server = IoServer::factory(
 	$app,
 	PORT
@@ -78,8 +78,8 @@ $loop = \React\EventLoop\Factory::create();
 
 $secure_websockets = new \React\Socket\Server(HOST . ":" . PORT, $loop);
 $secure_websockets = new \React\Socket\SecureServer($secure_websockets, $loop, [
-	// 'local_cert' => SSL_CERT,
-	// 'local_pk' => SSL_KEY,
+	'local_cert' => SSL_CERT,
+	'local_pk' => SSL_KEY,
 	'verify_peer' => false,
 	'allow_self_signed' => true,
 ]);
